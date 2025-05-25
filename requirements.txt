@@ -7,3 +7,5 @@ numpy==1.26.4
 gunicorn==23.0.0
 dash-auth==2.3.0
 ta==0.11.0
+gevent==25.5.1
+greenlet==3.2.2
