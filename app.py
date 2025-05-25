@@ -447,7 +447,7 @@ def generate_egarch_summary(n_clicks, selected_tickers):
 server = app.server
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run_server(debug=True)
 
 # def open_browser():
 #     webbrowser.open_new("http://127.0.0.1:8050/")
