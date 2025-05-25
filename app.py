@@ -16,6 +16,7 @@ from arch import arch_model
 import datetime
 import webbrowser
 from threading import Timer
+import dash_auth
 
 stock_list = {
     'RELIANCE': 'RELIANCE.NS',
@@ -83,8 +84,17 @@ stock_list = {
 #     'KOTAK BANK': 'KOTAKBANK.NS'
 # }
 
+VALID_USERNAME_PASSWORD_PAIRS = {
+    'EGARCH': 'Smit@123'
+}
+
 app = dash.Dash(__name__, suppress_callback_exceptions=True)
 app.title = 'NSE Stock Dashboard'
+
+auth = dash_auth.BasicAuth(
+    app,
+    VALID_USERNAME_PASSWORD_PAIRS
+)
 
 # Global styles
 container_style = {
