@@ -444,7 +444,7 @@ def generate_egarch_summary(n_clicks, selected_tickers):
 
     return table
 
-server = app.server
+application = app.server
 
 # if __name__ == "__main__":
 #     app.run_server(debug=True)
