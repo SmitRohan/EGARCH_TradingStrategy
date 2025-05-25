@@ -88,15 +88,15 @@ VALID_USERNAME_PASSWORD_PAIRS = {
     'EGARCH': 'Smit@123'
 }
 
-app = dash.Dash(__name__, suppress_callback_exceptions=True)
+app1 = dash.Dash(__name__, suppress_callback_exceptions=True)
 
-server = app.server
+app = app1.server
 
-app.title = 'NSE Stock Dashboard'
+app1.title = 'NSE Stock Dashboard'
 
 
 auth = dash_auth.BasicAuth(
-    app,
+    app1,
     VALID_USERNAME_PASSWORD_PAIRS
 )
 
@@ -222,7 +222,7 @@ page_3_layout = html.Div([
     )
 ], style=container_style)
 
-app.layout = html.Div([
+app1.layout = html.Div([
     dcc.Tabs(
         id='tabs',
         value='tab-1',
@@ -237,7 +237,7 @@ app.layout = html.Div([
 ])
 
 
-@app.callback(Output('tabs-content', 'children'),
+@app1.callback(Output('tabs-content', 'children'),
               Input('tabs', 'value'))
 def render_content(tab):
     if tab == 'tab-1':
@@ -248,7 +248,7 @@ def render_content(tab):
         return page_3_layout
 
 
-@app.callback(
+@app1.callback(
     [Output('stock-trend', 'figure'),
      Output('rsi-plot', 'figure')],
     Input('stock-selector', 'value')
@@ -304,7 +304,7 @@ def update_stock_graph(ticker='HDFCBANK.NS'):
     return fig1, fig2
 
 
-@app.callback(
+@app1.callback(
     [Output('volatility-plot', 'figure'),
      Output('signal-plot', 'figure'),
      Output('next-day-prediction', 'children')],
@@ -372,7 +372,7 @@ def run_egarch_model(n_clicks, ticker):
 
     return fig_vol, fig_sig, next_day_msg
 
-@app.callback(
+@app1.callback(
     Output('summary-table-container', 'children'),
     Input('generate-table-btn', 'n_clicks'),
     State('multi-stock-dropdown', 'value')
@@ -449,7 +449,7 @@ def generate_egarch_summary(n_clicks, selected_tickers):
     return table
 
 # if __name__ == "__main__":
-#     app.run_server(debug=True)
+#     app1.run_server(debug=True)
 
 # def open_browser():
 #     webbrowser.open_new("http://127.0.0.1:8050/")
@@ -457,5 +457,5 @@ def generate_egarch_summary(n_clicks, selected_tickers):
 
 # if __name__ == "__main__":
 #     Timer(1, open_browser).start()  # Delay opening slightly to let server start
-#     app.run(debug=True, use_reloader=False)
+#     app1.run(debug=True, use_reloader=False)
 
