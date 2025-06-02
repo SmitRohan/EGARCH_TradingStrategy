@@ -18,60 +18,62 @@ import webbrowser
 from threading import Timer
 import dash_auth
 
-stock_list = {
-    'RELIANCE': 'RELIANCE.NS',
-    'HDFC BANK': 'HDFCBANK.NS',
-    'INFOSYS': 'INFY.NS',
-    'TCS': 'TCS.NS',
-    'ICICI BANK': 'ICICIBANK.NS',
-    'SBIN': 'SBIN.NS',
-    'AXIS BANK': 'AXISBANK.NS',
-    'KOTAK BANK': 'KOTAKBANK.NS',
-    'HINDUSTAN UNILEVER': 'HINDUNILVR.NS',
-    'ITC': 'ITC.NS',
-    'LARSEN & TOUBRO': 'LT.NS',
-    'HCL TECHNOLOGIES': 'HCLTECH.NS',
-    'SUN PHARMA': 'SUNPHARMA.NS',
-    'MARUTI SUZUKI': 'MARUTI.NS',
-    'MAHINDRA & MAHINDRA': 'M&M.NS',
-    'ULTRATECH CEMENT': 'ULTRACEMCO.NS',
-    'NTPC': 'NTPC.NS',
-    'BAJAJ FINANCE': 'BAJFINANCE.NS',
-    'TITAN': 'TITAN.NS',
-    'OIL & NATURAL GAS CORP': 'ONGC.NS',
-    'ADANI PORTS': 'ADANIPORTS.NS',
-    'ADANI ENTERPRISES': 'ADANIENT.NS',
-    'BHARAT ELECTRONICS': 'BEL.NS',
-    'POWER GRID CORP': 'POWERGRID.NS',
-    'TATA MOTORS': 'TATAMOTORS.NS',
-    'WIPRO': 'WIPRO.NS',
-    'COAL INDIA': 'COALINDIA.NS',
-    'JSW STEEL': 'JSWSTEEL.NS',
-    'BAJAJ AUTO': 'BAJAJ-AUTO.NS',
-    'NESTLE INDIA': 'NESTLEIND.NS',
-    'ASIAN PAINTS': 'ASIANPAINT.NS',
-    'TATA STEEL': 'TATASTEEL.NS',
-    'TRENT': 'TRENT.NS',
-    'GRASIM INDUSTRIES': 'GRASIM.NS',
-    'SBI LIFE INSURANCE': 'SBILIFE.NS',
-    'SHRIRAM FINANCE': 'SHRIRAMFIN.NS',
-    'CIPLA': 'CIPLA.NS',
-    'TATA CONSUMER PRODUCTS': 'TATACONSUM.NS',
-    'DR REDDY\'S LABORATORIES': 'DRREDDY.NS',
-    'APOLLO HOSPITALS': 'APOLLOHOSP.NS',
-    'BHARTI AIRTEL': 'BHARTIARTL.NS',
-    'TECH MAHINDRA': 'TECHM.NS',
-    'DIVI\'S LABORATORIES': 'DIVISLAB.NS',
-    'BAJAJ FINSERV': 'BAJAJFINSV.NS',
-    'INDUSIND BANK': 'INDUSINDBK.NS',
-    'EICHER MOTORS': 'EICHERMOT.NS',
-    'HDFC LIFE INSURANCE': 'HDFCLIFE.NS',
-    'BRITANNIA INDUSTRIES': 'BRITANNIA.NS',
-    'HERO MOTOCORP': 'HEROMOTOCO.NS',
-    'UPL': 'UPL.NS',
-    'TATA POWER': 'TATAPOWER.NS',
-    'NIFTY 50': '^NSEI'
-}
+df = pd.read_excel('Average MCAP_July2024ToDecember 2024.xlsx')
+stock_list = {row['Company Name']: f"{row['Symbol']}.NS" for index, row in df.iterrows()}
+# stock_list = {
+#     'RELIANCE': 'RELIANCE.NS',
+#     'HDFC BANK': 'HDFCBANK.NS',
+#     'INFOSYS': 'INFY.NS',
+#     'TCS': 'TCS.NS',
+#     'ICICI BANK': 'ICICIBANK.NS',
+#     'SBIN': 'SBIN.NS',
+#     'AXIS BANK': 'AXISBANK.NS',
+#     'KOTAK BANK': 'KOTAKBANK.NS',
+#     'HINDUSTAN UNILEVER': 'HINDUNILVR.NS',
+#     'ITC': 'ITC.NS',
+#     'LARSEN & TOUBRO': 'LT.NS',
+#     'HCL TECHNOLOGIES': 'HCLTECH.NS',
+#     'SUN PHARMA': 'SUNPHARMA.NS',
+#     'MARUTI SUZUKI': 'MARUTI.NS',
+#     'MAHINDRA & MAHINDRA': 'M&M.NS',
+#     'ULTRATECH CEMENT': 'ULTRACEMCO.NS',
+#     'NTPC': 'NTPC.NS',
+#     'BAJAJ FINANCE': 'BAJFINANCE.NS',
+#     'TITAN': 'TITAN.NS',
+#     'OIL & NATURAL GAS CORP': 'ONGC.NS',
+#     'ADANI PORTS': 'ADANIPORTS.NS',
+#     'ADANI ENTERPRISES': 'ADANIENT.NS',
+#     'BHARAT ELECTRONICS': 'BEL.NS',
+#     'POWER GRID CORP': 'POWERGRID.NS',
+#     'TATA MOTORS': 'TATAMOTORS.NS',
+#     'WIPRO': 'WIPRO.NS',
+#     'COAL INDIA': 'COALINDIA.NS',
+#     'JSW STEEL': 'JSWSTEEL.NS',
+#     'BAJAJ AUTO': 'BAJAJ-AUTO.NS',
+#     'NESTLE INDIA': 'NESTLEIND.NS',
+#     'ASIAN PAINTS': 'ASIANPAINT.NS',
+#     'TATA STEEL': 'TATASTEEL.NS',
+#     'TRENT': 'TRENT.NS',
+#     'GRASIM INDUSTRIES': 'GRASIM.NS',
+#     'SBI LIFE INSURANCE': 'SBILIFE.NS',
+#     'SHRIRAM FINANCE': 'SHRIRAMFIN.NS',
+#     'CIPLA': 'CIPLA.NS',
+#     'TATA CONSUMER PRODUCTS': 'TATACONSUM.NS',
+#     'DR REDDY\'S LABORATORIES': 'DRREDDY.NS',
+#     'APOLLO HOSPITALS': 'APOLLOHOSP.NS',
+#     'BHARTI AIRTEL': 'BHARTIARTL.NS',
+#     'TECH MAHINDRA': 'TECHM.NS',
+#     'DIVI\'S LABORATORIES': 'DIVISLAB.NS',
+#     'BAJAJ FINSERV': 'BAJAJFINSV.NS',
+#     'INDUSIND BANK': 'INDUSINDBK.NS',
+#     'EICHER MOTORS': 'EICHERMOT.NS',
+#     'HDFC LIFE INSURANCE': 'HDFCLIFE.NS',
+#     'BRITANNIA INDUSTRIES': 'BRITANNIA.NS',
+#     'HERO MOTOCORP': 'HEROMOTOCO.NS',
+#     'UPL': 'UPL.NS',
+#     'TATA POWER': 'TATAPOWER.NS',
+#     'NIFTY 50': '^NSEI'
+# }
 
 # stock_list = {
 #     'RELIANCE': 'RELIANCE.NS',
@@ -88,11 +90,15 @@ VALID_USERNAME_PASSWORD_PAIRS = {
     'EGARCH': 'Smit@123'
 }
 
-app = dash.Dash(__name__, suppress_callback_exceptions=True)
-app.title = 'NSE Stock Dashboard'
+app1 = dash.Dash(__name__, suppress_callback_exceptions=True)
+
+app = app1.server
+
+app1.title = 'NSE Stock Dashboard'
+
 
 auth = dash_auth.BasicAuth(
-    app,
+    app1,
     VALID_USERNAME_PASSWORD_PAIRS
 )
 
@@ -218,7 +224,7 @@ page_3_layout = html.Div([
     )
 ], style=container_style)
 
-app.layout = html.Div([
+app1.layout = html.Div([
     dcc.Tabs(
         id='tabs',
         value='tab-1',
@@ -233,7 +239,7 @@ app.layout = html.Div([
 ])
 
 
-@app.callback(Output('tabs-content', 'children'),
+@app1.callback(Output('tabs-content', 'children'),
               Input('tabs', 'value'))
 def render_content(tab):
     if tab == 'tab-1':
@@ -244,7 +250,7 @@ def render_content(tab):
         return page_3_layout
 
 
-@app.callback(
+@app1.callback(
     [Output('stock-trend', 'figure'),
      Output('rsi-plot', 'figure')],
     Input('stock-selector', 'value')
@@ -300,7 +306,7 @@ def update_stock_graph(ticker='HDFCBANK.NS'):
     return fig1, fig2
 
 
-@app.callback(
+@app1.callback(
     [Output('volatility-plot', 'figure'),
      Output('signal-plot', 'figure'),
      Output('next-day-prediction', 'children')],
@@ -368,7 +374,7 @@ def run_egarch_model(n_clicks, ticker):
 
     return fig_vol, fig_sig, next_day_msg
 
-@app.callback(
+@app1.callback(
     Output('summary-table-container', 'children'),
     Input('generate-table-btn', 'n_clicks'),
     State('multi-stock-dropdown', 'value')
@@ -444,10 +450,8 @@ def generate_egarch_summary(n_clicks, selected_tickers):
 
     return table
 
-application = app.server
-
 # if __name__ == "__main__":
-#     app.run_server(debug=True)
+#     app1.run_server(debug=True)
 
 # def open_browser():
 #     webbrowser.open_new("http://127.0.0.1:8050/")
@@ -455,5 +459,5 @@ application = app.server
 
 # if __name__ == "__main__":
 #     Timer(1, open_browser).start()  # Delay opening slightly to let server start
-#     app.run(debug=True, use_reloader=False)
+#     app1.run(debug=True, use_reloader=False)
 
